@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Console">
+      <UniqueIdentifier>{c5d50a90-1f9e-4fc4-b019-f208b8bb650f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Deck">
+      <UniqueIdentifier>{ec066646-8ebf-4080-adb5-67c0dbaacf84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exception">
+      <UniqueIdentifier>{ffd5d581-2140-47e9-b7a7-5f8cfab25409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{c72f216f-a63a-4350-a313-e6dcaab0ba71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{c266cf8f-073a-45a1-870c-3366d2bfd469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RowCards">
+      <UniqueIdentifier>{ff12815b-9364-4293-82c8-7805b1cd2b57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StackCards">
+      <UniqueIdentifier>{8f7ef203-d8e5-4856-8cc0-ce43e1b2dae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Card">
+      <UniqueIdentifier>{ec3aa105-1b8a-4b93-9ebe-c25d2a29a716}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="console.hpp">
+      <Filter>Console</Filter>
+    </ClInclude>
+    <ClInclude Include="deck.hpp">
+      <Filter>Deck</Filter>
+    </ClInclude>
+    <ClInclude Include="exception.hpp">
+      <Filter>Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="game.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="player.hpp">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="row_cards.hpp">
+      <Filter>RowCards</Filter>
+    </ClInclude>
+    <ClInclude Include="stack_cards.hpp">
+      <Filter>StackCards</Filter>
+    </ClInclude>
+    <ClInclude Include="card.hpp">
+      <Filter>Card</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="console.cpp">
+      <Filter>Console</Filter>
+    </ClCompile>
+    <ClCompile Include="deck.cpp">
+      <Filter>Deck</Filter>
+    </ClCompile>
+    <ClCompile Include="exception.cpp">
+      <Filter>Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="row_cards.cpp">
+      <Filter>RowCards</Filter>
+    </ClCompile>
+    <ClCompile Include="stack_cards.cpp">
+      <Filter>StackCards</Filter>
+    </ClCompile>
+    <ClCompile Include="card.cpp">
+      <Filter>Card</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
