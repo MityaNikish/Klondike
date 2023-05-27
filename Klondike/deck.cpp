@@ -28,7 +28,7 @@ void Deck::shuffle_deck()
 }
 
 
-Card Deck::pick_up_the_card() const
+Card Deck::get_active_card() const
 {
 	if (deck_.empty())
 	{
@@ -51,7 +51,7 @@ void Deck::delete_card()
 }
 
 
-Card Deck::next()
+void Deck::next()
 {
 	if (deck_.empty())
 	{
@@ -59,7 +59,6 @@ Card Deck::next()
 	}
 
 	active_card_ = active_card_ + 1 >= deck_.size() ? 0 : active_card_ + 1;
-	return deck_[active_card_];
 }
 
 size_t Deck::get_number_card() const noexcept

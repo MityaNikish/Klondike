@@ -1,21 +1,23 @@
 #include "card.hpp"
 #include <vector>
+#include "exception.hpp"
 
 
-Card::Card(const Suit suit, const Rank rank) : suit_(suit), rank_(rank)
+std::unordered_map<Suit, Color> Card::color_suit = { {spades, Black}, {clubs, Black}, {diamonds, Red}, {hearts, Red} };
+
+Card::Card(const Suit suit, const Rank rank)
 {
-	std::vector<Suit> black_suit = { spades, clubs };
-	std::vector<Suit> red_suit = { diamonds, hearts };
-
-	if (std::ranges::find(black_suit, suit) != black_suit.end())
+	if (static_cast<int>(spades) > static_cast<int>(suit) && static_cast<int>(hearts) < static_cast<int>(suit))
 	{
-		color_ = Black;
+		throw card_exception();
 	}
-
-	if (std::ranges::find(red_suit, suit) != red_suit.end())
+	if (static_cast<int>(ace) > static_cast<int>(rank) && static_cast<int>(king) < static_cast<int>(rank))
 	{
-		color_ = Red;
+		throw card_exception();
 	}
+	suit_ = suit;
+	rank_ = rank;
+	color_ = color_suit.find(suit)->second;
 }
 
 

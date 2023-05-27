@@ -1,4 +1,5 @@
 #pragma once
+#include <unordered_map>
 
 enum Suit
 {
@@ -37,4 +38,5 @@ private:
 	Suit suit_;
 	Rank rank_;
 	Color color_;
+	static std::unordered_map<Suit, Color> color_suit;
 };

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+
 namespace 
 {
 	void draw_suit(Suit suit)
@@ -93,10 +94,10 @@ void Console::draw_deck(const Deck& deck)
 		return;
 	}
 
-	draw_rank(deck.pick_up_the_card().get_rank());
+	draw_rank(deck.get_active_card().get_rank());
 	std::cout << "  ";
-	draw_suit(deck.pick_up_the_card().get_suit());
-	draw_color(deck.pick_up_the_card().get_color());
+	draw_suit(deck.get_active_card().get_suit());
+	draw_color(deck.get_active_card().get_color());
 	std::cout << std::endl << std::endl;
 }
 

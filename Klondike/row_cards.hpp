@@ -7,11 +7,11 @@ class RowCards final
 {
 public:
 	RowCards();
-	[[nodiscard]] bool push_card(const Card& card);
+	[[nodiscard]] bool try_push_card(const Card& card);
 	void add_card(const Card& card);
 	[[nodiscard]] bool move_card_in_stack(StackCards& stack);
 	[[nodiscard]] bool move_card_in_row(RowCards& new_row_card);
-	[[nodiscard]] std::vector<Card> get_date() const noexcept;
+	[[nodiscard]] const std::vector<Card>& get_date() const noexcept;
 	[[nodiscard]] size_t size() const noexcept;
 private:
 	static bool hitch_check(const Card& prev_card, const Card& card);

@@ -5,6 +5,9 @@ const char* invalid_value_exception::what() const noexcept {
     return "Invalid value";
 }
 
+const char* card_exception::what() const noexcept {
+    return "Invalid card options";
+}
 
 const char* deck_exception::what() const noexcept {
     return "Deck is empty";

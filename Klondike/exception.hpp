@@ -7,6 +7,10 @@ class invalid_value_exception : public klondike_exception {
     const char* what() const noexcept override;
 };
 
+class card_exception : public klondike_exception {
+    const char* what() const noexcept override;
+};
+
 class deck_exception : public klondike_exception {
     const char* what() const noexcept override;
 };

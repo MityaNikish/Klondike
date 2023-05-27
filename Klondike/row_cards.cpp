@@ -4,7 +4,7 @@
 RowCards::RowCards() = default;
 
 
-bool RowCards::push_card(const Card& card)
+bool RowCards::try_push_card(const Card& card)
 {
 	if (row_.empty())
 	{
@@ -41,7 +41,7 @@ bool RowCards::move_card_in_stack(StackCards& stack)
 		return false;
 	}
 
-	const bool is_complete = stack.push_card(row_.back());
+	const bool is_complete = stack.try_push_card(row_.back());
 	if (is_complete)
 	{
 		row_.pop_back();
@@ -57,7 +57,7 @@ bool RowCards::move_card_in_row(RowCards& new_row_card)
 		return false;
 	}
 
-	const bool is_complete = new_row_card.push_card(row_.back());
+	const bool is_complete = new_row_card.try_push_card(row_.back());
 	if (is_complete)
 	{
 		row_.pop_back();
@@ -86,7 +86,7 @@ size_t RowCards::size() const noexcept
 	return row_.size();
 }
 
-std::vector<Card> RowCards::get_date() const noexcept
+const std::vector<Card>& RowCards::get_date() const noexcept
 {
 	return  row_;
 }

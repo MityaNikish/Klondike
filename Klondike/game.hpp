@@ -12,8 +12,8 @@ class Game final
 {
 public:
 	Game();
+	Game(const std::string& name_player);
 	void start_game();
-	//void start_game();  //Player, Timeout
 	[[nodiscard]] bool move_card_from_deck_to_stackcards(const size_t number_to_where);
 	[[nodiscard]] bool move_card_from_deck_to_rowcards(const size_t number_to_where);
 	[[nodiscard]] bool move_card_from_rowcards_to_stackcards(const size_t number_from_where, const size_t number_to_where);
@@ -28,4 +28,6 @@ private:
 	std::vector<RowCards> rows_cards_;
 	std::unique_ptr<UI> view_;
 	Player player_;
+	static  size_t count_stacks;
+	static size_t count_rows;
 };

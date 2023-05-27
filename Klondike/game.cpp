@@ -3,6 +3,9 @@
 #include "console.hpp"
 #include "exception.hpp"
 
+size_t Game::count_stacks = 4;
+
+size_t Game::count_rows = 7;
 
 Game::Game()
 {
@@ -11,18 +14,21 @@ Game::Game()
 	stacks_cards_.emplace_back(Suit::hearts);
 	stacks_cards_.emplace_back(Suit::spades);
 
-	rows_cards_.resize(7);
-
-
+	rows_cards_.resize(count_rows);
 
 	view_.reset(new Console);
+}
+
+Game::Game(const std::string& name_player) : Game()
+{
+	player_ = Player(name_player);
 }
 
 void Game::start_game()
 {
 	deck_.shuffle_deck();
 
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < count_rows; i++)
 	{
 		for (int j = 0; j < i + 1; j++)
 		{
@@ -30,7 +36,7 @@ void Game::start_game()
 			{
 				throw deck_exception();
 			}
-			const Card card = deck_.pick_up_the_card();
+			const Card card = deck_.get_active_card();
 			rows_cards_[i].add_card(card);
 			deck_.delete_card();
 		}
@@ -40,7 +46,7 @@ void Game::start_game()
 
 bool Game::move_card_from_deck_to_stackcards(const size_t number_to_where)
 {
-	if (number_to_where >= 4)
+	if (number_to_where >= count_stacks)
 	{
 		return false;
 	}
@@ -50,9 +56,9 @@ bool Game::move_card_from_deck_to_stackcards(const size_t number_to_where)
 		return false;
 	}
 
-	const Card card = deck_.pick_up_the_card();
+	const Card card = deck_.get_active_card();
 
-	if (stacks_cards_[number_to_where].push_card(card))
+	if (stacks_cards_[number_to_where].try_push_card(card))
 	{
 		deck_.delete_card();
 		player_.add_point(10);
@@ -65,7 +71,7 @@ bool Game::move_card_from_deck_to_stackcards(const size_t number_to_where)
 
 bool Game::move_card_from_deck_to_rowcards(const size_t number_to_where)
 {
-	if (number_to_where >= 7)
+	if (number_to_where >= count_rows)
 	{
 		return false;
 	}
@@ -75,9 +81,9 @@ bool Game::move_card_from_deck_to_rowcards(const size_t number_to_where)
 		return false;
 	}
 
-	const Card card = deck_.pick_up_the_card();
+	const Card card = deck_.get_active_card();
 
-	if (rows_cards_[number_to_where].push_card(card))
+	if (rows_cards_[number_to_where].try_push_card(card))
 	{
 		deck_.delete_card();
 		player_.add_point(10);
@@ -90,7 +96,7 @@ bool Game::move_card_from_deck_to_rowcards(const size_t number_to_where)
 
 bool Game::move_card_from_rowcards_to_stackcards(const size_t number_from_where, const size_t number_to_where)
 {
-	if (number_from_where >= 7 || number_to_where >= 4)
+	if (number_from_where >= count_rows || number_to_where >= count_stacks)
 	{
 		return false;
 	}
@@ -112,7 +118,7 @@ bool Game::move_card_from_rowcards_to_stackcards(const size_t number_from_where,
 
 bool Game::move_card_from_rowcards_to_rowcards(const size_t from_wich_card, const size_t number_from_where, const size_t number_to_where)
 {
-	if (number_from_where >= 7 || number_to_where >= 4)
+	if (number_from_where >= count_rows || number_to_where >= count_stacks)
 	{
 		return false;
 	}
@@ -144,18 +150,15 @@ void Game::update_view() const
 
 	view_->draw_deck(deck_);
 
-	size_t number = 0;
-	for (auto row_cards : rows_cards_)
+
+	for (size_t number_row = 0; number_row < count_rows; number_row++)
 	{
-		view_->draw_row_cards(number, row_cards);
-		number++;
+		view_->draw_row_cards(number_row, rows_cards_[number_row]);
 	}
 
-	number = 0;
-	for (auto stack_cards : stacks_cards_)
+	for (size_t number_stack = 0; number_stack < count_stacks; number_stack++)
 	{
-		view_->draw_stack_cards(number, stack_cards);
-		number++;
+		view_->draw_stack_cards(number_stack, stacks_cards_[number_stack]);
 	}
 
 	view_->draw_info(player_);

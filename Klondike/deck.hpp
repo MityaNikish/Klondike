@@ -7,9 +7,9 @@ class Deck final
 public:
 	Deck();
 	void shuffle_deck();
-	[[nodiscard]] Card pick_up_the_card() const;
+	[[nodiscard]] Card get_active_card() const;
 	void delete_card();
-	Card next();
+	void next();
 	[[nodiscard]] size_t get_number_card() const noexcept;
 	[[nodiscard]] bool empty() const noexcept;
 

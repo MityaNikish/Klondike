@@ -30,9 +30,19 @@ int inspector(std::string str)
 }
 
 
+const std::vector<int>& foo(std::vector<int>& arr)
+{
+	arr.push_back(1);
+	return arr;
+}
+
 int main()
 {
-	Game game;
+	std::string name;
+	std::cout << "Input name player: ";
+	getline(std::cin, name);
+
+	Game game(name);
 	game.start_game();
 
 	game.update_view();

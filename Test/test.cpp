@@ -24,7 +24,7 @@ TEST(deck__constructor, test__output_file) {
 
 	for (int i = 0; i < 52; i++)
 	{
-		Card card = object.pick_up_the_card();
+		Card card = object.get_active_card();
 		fin << card.get_suit() << "  " << card.get_rank() << std::endl;
 		object.next();
 	}
@@ -41,7 +41,7 @@ TEST(deck__shuffle_deck, test) {
 TEST(deck__pick_up_the_card, test) {
 	const Deck object;
 
-	EXPECT_TRUE(object.pick_up_the_card().get_rank() == Rank::ace);
+	EXPECT_TRUE(object.get_active_card().get_rank() == Rank::ace);
 }
 
 TEST(deck__next, test_1) {
@@ -54,7 +54,7 @@ TEST(deck__next, test_2) {
 	Deck object;
 
 	object.next();
-	EXPECT_TRUE(object.pick_up_the_card().get_rank() == Rank::two);
+	EXPECT_TRUE(object.get_active_card().get_rank() == Rank::two);
 }
 
 //--------------------------------------------------------------------------------------------------------------//
