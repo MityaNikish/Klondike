@@ -11,7 +11,6 @@
 class Game final
 {
 public:
-	Game();
 	Game(const std::string& name_player);
 	void start_game();
 	[[nodiscard]] bool move_card_from_deck_to_stackcards(const size_t number_to_where);
@@ -28,6 +27,6 @@ private:
 	std::vector<RowCards> rows_cards_;
 	std::unique_ptr<UI> view_;
 	Player player_;
-	static  size_t count_stacks;
-	static size_t count_rows;
+	static const size_t count_stacks;
+	static const size_t count_rows;
 };

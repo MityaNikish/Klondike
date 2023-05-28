@@ -6,7 +6,7 @@ class Deck final
 {
 public:
 	Deck();
-	void shuffle_deck();
+	void shuffle_deck(const int seed);
 	[[nodiscard]] Card get_active_card() const;
 	void delete_card();
 	void next();
@@ -17,4 +17,6 @@ public:
 private:
 	std::vector<Card> deck_;
 	size_t active_card_;
+	static const std::vector<Suit> suits;
+	static const std::vector<Rank> ranks;
 };

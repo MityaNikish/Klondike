@@ -50,7 +50,7 @@ bool RowCards::move_card_in_stack(StackCards& stack)
 }
 
 
-bool RowCards::move_card_in_row(RowCards& new_row_card)
+bool RowCards::try_move_card_in_row(RowCards& new_row_card)
 {
 	if (row_.empty())
 	{

@@ -3,7 +3,7 @@
 #include "exception.hpp"
 
 
-std::unordered_map<Suit, Color> Card::color_suit = { {spades, Black}, {clubs, Black}, {diamonds, Red}, {hearts, Red} };
+const std::unordered_map<Suit, Color> Card::color_suit = { {spades, Black}, {clubs, Black}, {diamonds, Red}, {hearts, Red} };
 
 Card::Card(const Suit suit, const Rank rank)
 {

@@ -5,7 +5,6 @@
 class StackCards final
 {
 public:
-	StackCards() = delete;
 	StackCards(Suit suit_stack);
 	[[nodiscard]] bool try_push_card(const Card& card);
 	[[nodiscard]] Card get_top() const;

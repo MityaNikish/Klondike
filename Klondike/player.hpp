@@ -4,7 +4,6 @@
 class Player final
 {
 public:
-	Player();
 	Player(const std::string& name);
 	[[nodiscard]] size_t get_score() const;
 	[[nodiscard]] std::string get_name() const;

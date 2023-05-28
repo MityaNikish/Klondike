@@ -2,12 +2,14 @@
 #include <cstdlib>
 #include "console.hpp"
 #include "exception.hpp"
+#include <random>
+#include <ctime>
 
-size_t Game::count_stacks = 4;
+size_t const Game::count_stacks = 4;
 
-size_t Game::count_rows = 7;
+size_t const Game::count_rows = 7;
 
-Game::Game()
+Game::Game(const std::string& name_player) : player_(name_player)
 {
 	stacks_cards_.emplace_back(Suit::clubs);
 	stacks_cards_.emplace_back(Suit::diamonds);
@@ -19,18 +21,13 @@ Game::Game()
 	view_.reset(new Console);
 }
 
-Game::Game(const std::string& name_player) : Game()
-{
-	player_ = Player(name_player);
-}
-
 void Game::start_game()
 {
-	deck_.shuffle_deck();
+	deck_.shuffle_deck(static_cast<int>(time(nullptr)));
 
-	for (int i = 0; i < count_rows; i++)
+	for (size_t i = 0; i < count_rows; i++)
 	{
-		for (int j = 0; j < i + 1; j++)
+		for (size_t j = 0; j < i + 1; j++)
 		{
 			if (deck_.empty())
 			{
@@ -129,7 +126,7 @@ bool Game::move_card_from_rowcards_to_rowcards(const size_t from_wich_card, cons
 		return false;
 	}
 
-	return rows_cards_[number_from_where].move_card_in_row(rows_cards_[number_to_where]);
+	return rows_cards_[number_from_where].try_move_card_in_row(rows_cards_[number_to_where]);
 }
 
 

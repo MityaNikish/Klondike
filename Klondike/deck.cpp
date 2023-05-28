@@ -3,11 +3,12 @@
 #include "exception.hpp"
 
 
+const std::vector<Suit> Deck::suits = { clubs, diamonds, hearts, spades };
+
+const std::vector<Rank> Deck::ranks = { ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen,	king };
+
 Deck::Deck()
 {	
-	const std::vector<Suit> suits = { Suit::clubs, Suit::diamonds, Suit::hearts, Suit::spades };
-	const std::vector<Rank> ranks = { ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen,	king };
-
 	for (const auto suit : suits)
 	{
 		for (const auto rank : ranks)
@@ -20,10 +21,9 @@ Deck::Deck()
 }
 
 
-void Deck::shuffle_deck()
+void Deck::shuffle_deck(const int seed)
 {
-	std::random_device dev;
-	std::mt19937 rng(dev());
+	std::mt19937 rng(seed);
 	std::ranges::shuffle(deck_, rng);
 }
 
