@@ -2,22 +2,27 @@
 #include <vector>
 #include "exception.hpp"
 
+namespace
+{
+	const std::unordered_map<Suit, Color> color_suit = { {spades, Black}, {clubs, Black}, {diamonds, Red}, {hearts, Red} };
+	const std::vector<Rank> ranks = { ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen,	king };
+}
 
-const std::unordered_map<Suit, Color> Card::color_suit = { {spades, Black}, {clubs, Black}, {diamonds, Red}, {hearts, Red} };
 
 Card::Card(const Suit suit, const Rank rank)
 {
-	if (static_cast<int>(spades) > static_cast<int>(suit) && static_cast<int>(hearts) < static_cast<int>(suit))
+	auto iter = color_suit.find(suit);
+	if (iter == color_suit.end())
 	{
 		throw card_exception();
 	}
-	if (static_cast<int>(ace) > static_cast<int>(rank) && static_cast<int>(king) < static_cast<int>(rank))
+	if (std::ranges::find(ranks, rank) == ranks.end())
 	{
 		throw card_exception();
 	}
 	suit_ = suit;
 	rank_ = rank;
-	color_ = color_suit.find(suit)->second;
+	color_ = iter->second;
 }
 
 

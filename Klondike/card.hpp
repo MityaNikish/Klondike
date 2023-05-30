@@ -37,5 +37,4 @@ private:
 	Suit suit_;
 	Rank rank_;
 	Color color_;
-	static const std::unordered_map<Suit, Color> color_suit;
 };

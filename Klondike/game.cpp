@@ -9,14 +9,12 @@ size_t const Game::count_stacks = 4;
 
 size_t const Game::count_rows = 7;
 
-Game::Game(const std::string& name_player) : player_(name_player)
+Game::Game(const std::string& name_player) : rows_cards_(count_rows), player_(name_player)
 {
 	stacks_cards_.emplace_back(Suit::clubs);
 	stacks_cards_.emplace_back(Suit::diamonds);
 	stacks_cards_.emplace_back(Suit::hearts);
 	stacks_cards_.emplace_back(Suit::spades);
-
-	rows_cards_.resize(count_rows);
 
 	view_.reset(new Console);
 }
@@ -41,12 +39,13 @@ void Game::start_game()
 }
 
 
-bool Game::move_card_from_deck_to_stackcards(const size_t number_to_where)
+bool Game::move_card_from_deck_to_stackcards(const IndexStack index_to)
 {
-	if (number_to_where >= count_stacks)
+	if (index_to.check_validity())
 	{
 		return false;
 	}
+	const size_t number_to_where = index_to.get_index();
 
 	if (deck_.empty())
 	{
@@ -66,12 +65,13 @@ bool Game::move_card_from_deck_to_stackcards(const size_t number_to_where)
 }
 
 
-bool Game::move_card_from_deck_to_rowcards(const size_t number_to_where)
+bool Game::move_card_from_deck_to_rowcards(const IndexRow index_to)
 {
-	if (number_to_where >= count_rows)
+	if (index_to.check_validity())
 	{
 		return false;
 	}
+	const size_t number_to_where = index_to.get_index();
 
 	if (deck_.empty())
 	{
@@ -91,42 +91,82 @@ bool Game::move_card_from_deck_to_rowcards(const size_t number_to_where)
 }
 
 
-bool Game::move_card_from_rowcards_to_stackcards(const size_t number_from_where, const size_t number_to_where)
+bool Game::move_card_from_rowcards_to_stackcards(const IndexRow index_from, const IndexStack index_to)
 {
-	if (number_from_where >= count_rows || number_to_where >= count_stacks)
+	if (index_from.check_validity() || index_to.check_validity())
+	{
+		return false;
+	}
+	const size_t number_from_where = index_from.get_index();
+	const size_t number_to_where = index_to.get_index();
+
+	RowCards *row = &rows_cards_[number_from_where];
+	StackCards *stack = &stacks_cards_[number_to_where];
+
+	if (row->empty())
 	{
 		return false;
 	}
 
-	RowCards row_cards = rows_cards_[number_from_where];
-	StackCards stack_cards = stacks_cards_[number_to_where];
-
-
-	if (rows_cards_[number_from_where].move_card_in_stack(stacks_cards_[number_to_where]))
+	if (stack->try_push_card(row->get_back()))
 	{
+		row->pop_back();
 		player_.add_point(10);
 		return true;
 	}
 	player_.subtract_point(5);
 	return false;
-
 }
 
 
-bool Game::move_card_from_rowcards_to_rowcards(const size_t from_wich_card, const size_t number_from_where, const size_t number_to_where)
+bool Game::move_card_from_rowcards_to_rowcards(const int count_cards, const IndexRow index_from, const IndexRow index_to)
 {
-	if (number_from_where >= count_rows || number_to_where >= count_stacks)
+	if (index_from.check_validity() || index_to.check_validity())
+	{
+		return false;
+	}
+	const size_t number_from_where = index_from.get_index();
+	const size_t number_to_where = index_to.get_index();
+
+	if (count_cards > rows_cards_[number_from_where].size() || count_cards < 0)
 	{
 		return false;
 	}
 
+	std::vector<Card> cards_from = rows_cards_[number_from_where].get_date();
+	RowCards row_temp;
 
-	if (from_wich_card > rows_cards_[number_from_where].size())
+	bool complete = true;
+	for (size_t index = cards_from.size() - 1 - count_cards; index < cards_from.size(); index++)
+	{
+		complete = row_temp.try_push_card(cards_from[index]);
+		if (!complete)
+		{
+			return false;
+		}
+	}
+
+	std::vector<Card> cards_temp = row_temp.get_date();
+	RowCards* row_to = &rows_cards_[number_from_where];
+
+	if (!row_to->try_push_card(cards_temp[0]))
 	{
 		return false;
 	}
 
-	return rows_cards_[number_from_where].try_move_card_in_row(rows_cards_[number_to_where]);
+	for (size_t index = 1 ; index < count_cards; index++)
+	{
+		const bool temp = row_to->try_push_card(cards_from[index]);
+	}
+
+	RowCards* row_from = &rows_cards_[number_from_where];
+
+	for (size_t index = 0; index < count_cards; index++)
+	{
+		row_from->pop_back();
+	}
+
+	return true;
 }
 
 

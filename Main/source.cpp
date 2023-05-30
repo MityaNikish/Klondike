@@ -3,6 +3,7 @@
 //#include  "stack_cards.hpp"
 //#include  "row_cards.hpp"
 #include "game.hpp"
+#include "index.hpp"
 #include "exception.hpp"
 
 enum KeyPad
@@ -36,6 +37,7 @@ const std::vector<int>& foo(std::vector<int>& arr)
 	return arr;
 }
 
+
 int main()
 {
 	std::string name;
@@ -61,7 +63,7 @@ int main()
 			std::cout << "\n\n\n";
 		}
 
-		size_t number_from, number_to;
+		int number_from, number_to, count;
 		key = inspector("First wave event.\n[Show the next card in the deck - 1;\tPut a card from deck to row - 2;\tPut a card from deck to stack - 3;\n"
 			"Move a card from row to row - 4;\tMove a card from row to stack = 5]\nSelect an action: ");
 		//std::cout << ;
@@ -76,21 +78,21 @@ int main()
 		case from_row_to_row:
 			number_from = inspector("Choose where from: ");
 			number_to = inspector("Choose where: ");
-			right = game.move_card_from_rowcards_to_rowcards(1, number_from, number_to);
+			count = inspector("Count cards: ");
+			right = game.move_card_from_rowcards_to_rowcards(count, IndexRow(number_from), IndexRow(number_to));
 			break;
 		case from_row_to_stack:
-
 			number_from = inspector("Choose where from: ");
 			number_to = inspector("Choose where: ");
-			right = game.move_card_from_rowcards_to_stackcards(number_from, number_to);
+			right = game.move_card_from_rowcards_to_stackcards(IndexRow(number_from), IndexStack(number_to));
 			break;
 		case from_deck_to_row:
 			number_to = inspector("Choose where: ");
-			right = game.move_card_from_deck_to_rowcards(number_to);
+			right = game.move_card_from_deck_to_rowcards(IndexRow(number_to));
 			break;
 		case from_deck_to_stack:
 			number_to = inspector("Choose where: ");
-			right = game.move_card_from_deck_to_stackcards(number_to);
+			right = game.move_card_from_deck_to_stackcards(IndexStack(number_to));
 			break;
 		default:
 			right = false;

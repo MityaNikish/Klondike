@@ -32,7 +32,6 @@ Card StackCards::get_top() const
 	{
 		throw stack_cards_exception();
 	}
-
 	return stack_.back();
 }
 

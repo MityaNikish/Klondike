@@ -1,6 +1,7 @@
 #include "console.hpp"
 #include <iostream>
 #include <string>
+#include "exception.hpp"
 
 
 namespace 
@@ -24,7 +25,7 @@ namespace
 			suit_card = "Spades";
 			break;
 		default:
-			break;
+			throw ui_exception();
 		}
 		std::cout << suit_card;
 	}
@@ -38,6 +39,33 @@ namespace
 		case Rank::ace:
 			rank_card = "Ace";
 			break;
+		case Rank::two:
+			rank_card = "2";
+			break;
+		case Rank::three:
+			rank_card = "3";
+			break;
+		case Rank::four:
+			rank_card = "4";
+			break;
+		case Rank::five:
+			rank_card = "5";
+			break;
+		case Rank::six:
+			rank_card = "6";
+			break;
+		case Rank::seven:
+			rank_card = "7";
+			break;
+		case Rank::eight:
+			rank_card = "8";
+			break;
+		case Rank::nine:
+			rank_card = "9";
+			break;
+		case Rank::ten:
+			rank_card = "10";
+			break;
 		case Rank::jack:
 			rank_card = "Jack";
 			break;
@@ -48,8 +76,7 @@ namespace
 			rank_card = "King";
 			break;
 		default:
-			rank_card = std::to_string(rank);
-			break;
+			throw ui_exception();
 		}
 		std::cout << rank_card;
 	}
@@ -67,7 +94,7 @@ namespace
 			color_card = "(Red)";
 			break;
 		default:
-			break;
+			throw ui_exception();
 		}
 		std::cout << color_card;
 	}

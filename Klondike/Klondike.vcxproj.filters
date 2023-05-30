@@ -25,6 +25,9 @@
     <Filter Include="Card">
       <UniqueIdentifier>{ec3aa105-1b8a-4b93-9ebe-c25d2a29a716}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Index">
+      <UniqueIdentifier>{b219daa0-746c-44e2-b8ab-061af819616d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console.hpp">
@@ -50,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="card.hpp">
       <Filter>Card</Filter>
+    </ClInclude>
+    <ClInclude Include="index.hpp">
+      <Filter>Index</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

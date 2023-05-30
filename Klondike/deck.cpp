@@ -3,9 +3,12 @@
 #include "exception.hpp"
 
 
-const std::vector<Suit> Deck::suits = { clubs, diamonds, hearts, spades };
+namespace 
+{
+	const std::vector<Suit> suits = { clubs, diamonds, hearts, spades };
+	const std::vector<Rank> ranks = { ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen,	king };
+}
 
-const std::vector<Rank> Deck::ranks = { ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen,	king };
 
 Deck::Deck()
 {	

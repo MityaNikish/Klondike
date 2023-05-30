@@ -17,6 +17,4 @@ public:
 private:
 	std::vector<Card> deck_;
 	size_t active_card_;
-	static const std::vector<Suit> suits;
-	static const std::vector<Rank> ranks;
 };
